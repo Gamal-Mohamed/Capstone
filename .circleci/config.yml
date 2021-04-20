@@ -57,5 +57,5 @@ workflows:
            cluster-name: main-cluster
        - main-deployment:
            cluster-name: main-cluster
-            requires:
-              - aws-eks/create-cluster
+              requires:
+                - aws-eks/create-cluster
