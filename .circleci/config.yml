@@ -1,0 +1,61 @@
+version : 2.1
+
+orbs:
+  aws-eks: circleci/aws-eks@0.2.3
+  kubernetes: circleci/kubernetes@0.4.0
+
+
+jobs:
+  # Creating EKS Cluster using orbs
+  main-cluster:
+     executor: aws-eks/python3
+     parameters:
+       cluster-name:
+         description: |
+           Name of the EKS cluster
+         type: string
+     steps:
+       - checkout
+       - kubernetes/install
+       - aws-eks/update-kubeconfig-with-authenticator:
+           cluster-name: << parameters.cluster-name >>
+           install-kubectl: true
+       - run:
+           name: "Services verification"
+           command: |
+             kubectl get services
+
+ main-deployment:
+     executor: aws-eks/python3
+     parameters:
+       cluster-name:
+         description: |
+           Name of the EKS cluster
+         type: string
+         default: main-cluster
+     steps:
+       - checkout
+       - aws-eks/update-kubeconfig-with-authenticator:
+           cluster-name: << parameters.cluster-name >>
+           install-kubectl: true
+       - kubernetes/create-or-update-resource:
+           resource-file-path: main-deployment.yml
+           resource-name: deployment/main-deployment.yml
+       - run:
+           name: "verify main deployment"
+           command: |
+             kubectl get all
+
+
+
+
+workflows:
+
+  deployment:
+    jobs:
+       - aws-eks/create-cluster:
+           cluster-name: main-cluster
+       - main-deployment:
+           cluster-name: main-cluster
+            requires:
+              - aws-eks/create-cluster
