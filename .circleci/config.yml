@@ -24,6 +24,7 @@ jobs:
            name: "Services verification"
            command: |
              kubectl get services
+             kubectl get all
 
   main-deployment:
      executor: aws-eks/python3
