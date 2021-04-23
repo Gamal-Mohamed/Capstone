@@ -76,10 +76,12 @@ workflows:
           cluster-name: main-cluster
       - main-deployment:
           cluster-name: main-cluster
-#          requires: [aws-eks/create-cluster]
+          requires:
+            - aws-eks/create-cluster
       - lint-main-app:
-#          requires: [main-deployment]
+          requires:
+            - main-deployment
       - aws-eks/delete-cluster:
           cluster-name: main-cluster
-#         requires:
-#           - main-deployment    
+            requires:
+              - main-deployment    
