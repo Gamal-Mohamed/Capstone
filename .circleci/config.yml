@@ -58,7 +58,7 @@ workflows:
        - main-deployment:
            cluster-name: main-cluster
            requires: [aws-eks/create-cluster]
-       - aws-eks/delete-cluster:
-          cluster-name: main-cluster
-          requires:
-            - main-deployment    
+#       - aws-eks/delete-cluster:
+#          cluster-name: main-cluster
+#          requires:
+#            - main-deployment    
