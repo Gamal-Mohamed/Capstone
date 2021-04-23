@@ -47,18 +47,39 @@ jobs:
            command: |
              kubectl get all
 
+  
+  lint-main-app:
+     docker:
+       - image: nginx:latest
+     working_directory: ~/repo
+     steps:
+       - checkout
+       - run:
+           name: "Setup & Installing packages"
+           command: |
+             make setup
+             make install
+       - run:
+           name: "Linting Code Phase"
+           command: |
+             . venv/bin/activate
+             make lint
 
+
+             
 
 
 workflows:
   deployment:
     jobs:
-#       - aws-eks/create-cluster:
-#           cluster-name: main-cluster
-#       - main-deployment:
-#           cluster-name: main-cluster
-#           requires: [aws-eks/create-cluster]
+       - aws-eks/create-cluster:
+           cluster-name: main-cluster
+       - main-deployment:
+           cluster-name: main-cluster
+           requires: [aws-eks/create-cluster]
+       - lint-main-app:
+           requires: main-deployment
        - aws-eks/delete-cluster:
           cluster-name: main-cluster
-#          requires:
-#            - main-deployment    
+          requires:
+            - main-deployment    
