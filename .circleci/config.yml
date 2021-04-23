@@ -50,7 +50,7 @@ jobs:
   
   lint-main-app:
      docker:
-       - image: nginx:latest
+       - image: python:3.7.3-stretch
      working_directory: ~/repo
      steps:
        - checkout
