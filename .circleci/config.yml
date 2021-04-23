@@ -48,7 +48,7 @@ jobs:
              kubectl get all
 
   
-  lint-main-app:
+  lint-main:
      docker:
        - image: python:3.7.3-stretch
      working_directory: ~/repo
@@ -64,22 +64,21 @@ jobs:
            command: |
              . venv/bin/activate
              make lint
-
-
+             
              
 
-
+             
 workflows:
   deployment:
     jobs:
-#      - aws-eks/create-cluster:
-#         cluster-name: main-cluster
-#      - main-deployment:
-#          cluster-name: main-cluster
-#          requires: [aws-eks/create-cluster]
-#      - lint-main-app:
-#          requires: [main-deployment]
-       - aws-eks/delete-cluster:
+       - aws-eks/create-cluster:
            cluster-name: main-cluster
-#            requires:
-#             - main-deployment    
+       - main-deployment:
+           cluster-name: main-cluster
+           # requires:
+           #   - aws-eks/create-cluster
+       - lint-main:
+           requires:
+             - main-deployment
+       - aws-eks/delete-cluster:
+          cluster-name: main-cluster
