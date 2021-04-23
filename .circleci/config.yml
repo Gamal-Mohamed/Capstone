@@ -72,14 +72,14 @@ jobs:
 workflows:
   deployment:
     jobs:
-       - aws-eks/create-cluster:
-           cluster-name: main-cluster
-       - main-deployment:
-           cluster-name: main-cluster
-#           requires: [aws-eks/create-cluster]
-       - lint-main-app:
-#           requires: [main-deployment]
-       - aws-eks/delete-cluster:
-           cluster-name: main-cluster
-#          requires:
-#            - main-deployment    
+      - aws-eks/create-cluster:
+          cluster-name: main-cluster
+      - main-deployment:
+          cluster-name: main-cluster
+#          requires: [aws-eks/create-cluster]
+      - lint-main-app:
+#          requires: [main-deployment]
+      - aws-eks/delete-cluster:
+          cluster-name: main-cluster
+#         requires:
+#           - main-deployment    
