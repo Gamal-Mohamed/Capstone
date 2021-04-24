@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/Gamal-Mohamed/Capstone.svg?style=svg&circle-token=<YOUR_STATUS_API_TOKEN>)](https://app.circleci.com/pipelines/github/Gamal-Mohamed/Capstone)
+
+
 #Capstone Project
 -----------------
 In this project you will apply the skills and knowledge which were developed throughout the Cloud DevOps Nanodegree program. These include:
