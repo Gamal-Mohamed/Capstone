@@ -110,11 +110,11 @@ workflows:
 #            tag: 'mynginx2'
 #            requires:
 #              - lint-main
-        - new-deployment:
-            cluster-name: main-cluster
+#        - new-deployment:
+#            cluster-name: main-cluster
 #            requires:
 #              - aws-ecr/build-and-push-image
-#        - aws-eks/delete-cluster:
-#            cluster-name: main-cluster
+        - aws-eks/delete-cluster:
+            cluster-name: main-cluster
 #            requires:
 #              - new-deployment
