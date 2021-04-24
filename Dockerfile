@@ -1,6 +1,6 @@
 #First step to install the latest (new) version of nginx (or any new version as an exmple for upgrade)
 
-FROM nginx:latest
+FROM nginx:1.19
 
 #Second step to replace the default index page
 
