@@ -94,27 +94,27 @@ jobs:
 workflows:
   deployment:
     jobs:
-#        - aws-eks/create-cluster:
-#            cluster-name: main-cluster
-#        - main-deployment:
-#            cluster-name: main-cluster
-#            requires:
-#              - aws-eks/create-cluster
-#        - lint-main:
-#            requires:
-#              - main-deployment
-#        - aws-ecr/build-and-push-image:
-#            dockerfile: Dockerfile
-#            no-output-timeout: 20m
-#            repo: myimages
-#            tag: 'mynginx2'
-#            requires:
-#              - lint-main
-#        - new-deployment:
-#            cluster-name: main-cluster
-#            requires:
-#              - aws-ecr/build-and-push-image
-        - aws-eks/delete-cluster:
+        - aws-eks/create-cluster:
             cluster-name: main-cluster
+        - main-deployment:
+            cluster-name: main-cluster
+            requires:
+              - aws-eks/create-cluster
+        - lint-main:
+            requires:
+              - main-deployment
+        - aws-ecr/build-and-push-image:
+            dockerfile: Dockerfile
+            no-output-timeout: 20m
+            repo: myimages
+            tag: 'mynginx2'
+            requires:
+              - lint-main
+        - new-deployment:
+            cluster-name: main-cluster
+            requires:
+              - aws-ecr/build-and-push-image
+#        - aws-eks/delete-cluster:
+#            cluster-name: main-cluster
 #            requires:
 #              - new-deployment
