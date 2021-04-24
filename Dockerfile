@@ -7,7 +7,7 @@ FROM nginx:1.19
 COPY ./index.html /usr/share/nginx/html/index.html
 
 #Installing packages and linting code
-RUN pip3 install --upgrade pip && pip3 install Flask && pip3 install pylint
+#RUN pip3 install --upgrade pip && pip3 install Flask && pip3 install pylint
 
 
 #Exposing ports
