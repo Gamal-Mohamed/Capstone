@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: main-deployment
   labels:
-    app: nginx2
+    app: nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx2
+      app: nginx
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,10 +18,10 @@ spec:
   template:
     metadata:
       labels:
-        app: nginx2
+        app: nginx
     spec:
       containers:
-      - name: nginx2
+      - name: nginx
         image: 828182725743.dkr.ecr.us-west-2.amazonaws.com/myimages:mynginx2
         ports:
         - containerPort: 80
